@@ -1,79 +1,79 @@
 # Kekylin Hosts Start
 # Raw Url: https://raw.githubusercontent.com/kekylin/hosts/main/hosts
 # DNS Servers: Aliyun Computing Co. Ltd
-# Update at: 2025-10-19 20:24:01
+# Update at: 2025-10-20 02:17:04
 # GitHub Hosts Start
 185.199.109.153 github.io
 140.82.112.3    github.com
 192.0.66.2      github.blog
-140.82.112.17   github.community
-140.82.112.6    api.github.com
+140.82.114.18   github.community
+140.82.114.6    api.github.com
 140.82.112.21   api.githubcopilot.com
-140.82.113.3    gist.github.com
-140.82.113.10   codeload.github.com
+140.82.114.3    gist.github.com
+140.82.112.9    codeload.github.com
 140.82.112.21   central.github.com
 140.82.112.21   collector.github.com
-185.199.111.133 raw.github.com
-185.199.109.154 docs.github.com
-185.199.108.133 raw.githubusercontent.com
-185.199.108.133 camo.githubusercontent.com
-185.199.108.133 cloud.githubusercontent.com
+185.199.110.133 raw.github.com
+185.199.108.154 docs.github.com
+185.199.109.133 raw.githubusercontent.com
+185.199.111.133 camo.githubusercontent.com
+185.199.111.133 cloud.githubusercontent.com
 185.199.109.133 media.githubusercontent.com
-185.199.109.133 desktop.githubusercontent.com
-185.199.108.133 objects.githubusercontent.com
-185.199.111.133 favicons.githubusercontent.com
-185.199.109.133 avatars5.githubusercontent.com
-185.199.111.133 avatars4.githubusercontent.com
-185.199.109.133 avatars3.githubusercontent.com
+185.199.108.133 desktop.githubusercontent.com
+185.199.111.133 objects.githubusercontent.com
+185.199.110.133 favicons.githubusercontent.com
+185.199.108.133 avatars5.githubusercontent.com
+185.199.110.133 avatars4.githubusercontent.com
+185.199.110.133 avatars3.githubusercontent.com
 185.199.109.133 avatars2.githubusercontent.com
 185.199.111.133 avatars1.githubusercontent.com
 185.199.111.133 avatars0.githubusercontent.com
-185.199.111.133 avatars.githubusercontent.com
+185.199.109.133 avatars.githubusercontent.com
 185.199.111.133 user-images.githubusercontent.com
 4.249.131.160   copilot-proxy.githubusercontent.com
-185.199.111.154 github-releases.githubusercontent.com
+185.199.109.154 github-releases.githubusercontent.com
 13.107.42.16    pipelines.actions.githubusercontent.com
 20.246.184.240  pipelinesghubeus7.actions.githubusercontent.com
 185.199.108.153 githubstatus.com
 140.82.112.21   collector.githubapp.com
-185.199.110.154 github.githubassets.com
-185.199.110.153 analytics.githubassets.com
-185.199.111.133 github.map.fastly.net
+185.199.109.154 github.githubassets.com
+185.199.108.153 analytics.githubassets.com
+185.199.108.133 github.map.fastly.net
 146.75.29.194   github.global.ssl.fastly.net
-52.217.118.169  github-cloud.s3.amazonaws.com
-3.5.28.173      github-com.s3.amazonaws.com
-16.15.180.86    github-production-release-asset-2e65be.s3.amazonaws.com
-52.217.118.169  github-production-user-asset-6210df.s3.amazonaws.com
-16.15.180.86    github-production-repository-file-5c1aeb.s3.amazonaws.com
+52.216.53.185   github-cloud.s3.amazonaws.com
+54.231.203.241  github-com.s3.amazonaws.com
+54.231.203.241  github-production-release-asset-2e65be.s3.amazonaws.com
+54.231.203.241  github-production-user-asset-6210df.s3.amazonaws.com
+3.5.27.53       github-production-repository-file-5c1aeb.s3.amazonaws.com
 # GitHub Hosts End
 # Docker Hosts Start
-44.206.165.66   registry.hub.docker.com
-2600:1f18:2148:bc01:1d2f:ad30:b220:ba3d registry.hub.docker.com
+3.211.28.195    registry.hub.docker.com
+2600:1f18:2148:bc00:f9db:704c:aa09:ee2b registry.hub.docker.com
 52.204.191.236  hub.docker.com
 2600:1f18:2148:bc01:b5f4:8183:2b4e:7efd hub.docker.com
-34.237.6.69     index.docker.io
-2600:1f18:2148:bc00:883e:fb7d:2ea9:398a index.docker.io
-140.82.112.33   ghcr.io
-142.251.179.82  gcr.io
-192.178.155.82  k8s.gcr.io
-3.95.36.16      quay.io
-2600:1f18:483:cf02:a6c6:cae8:6c9d:37de  quay.io
+54.165.148.211  index.docker.io
+2600:1f18:2148:bc00:3649:ffc9:b91:577a  index.docker.io
+140.82.114.33   ghcr.io
+172.253.62.82   gcr.io
+142.251.167.82  k8s.gcr.io
+52.44.83.155    quay.io
+2600:1f18:483:cf01:7273:262e:51c6:bdc4  quay.io
 # Docker Hosts End
 # TMDB Hosts Start
-108.159.227.111 themoviedb.org
-2600:9000:233d:ae00:e:5373:440:93a1     themoviedb.org
-108.159.227.27  www.themoviedb.org
-2600:9000:233d:1200:e:5373:440:93a1     www.themoviedb.org
+108.159.227.37  themoviedb.org
+2600:9000:233d:4c00:e:5373:440:93a1     themoviedb.org
+108.159.227.37  www.themoviedb.org
+2600:9000:233d:e00:e:5373:440:93a1      www.themoviedb.org
 3.170.103.16    api.themoviedb.org
-2600:9000:287c:b400:c:174a:c400:93a1    api.themoviedb.org
-18.160.200.103  tmdb.org
-2600:9000:2340:b800:10:db24:6940:93a1   tmdb.org
-13.32.205.37    api.tmdb.org
-2600:9000:2015:e00:10:fb02:4000:93a1    api.tmdb.org
-169.150.236.107 image.tmdb.org
-104.26.7.244    opensubtitles.org
-104.26.6.244    www.opensubtitles.org
+2600:9000:287c:5600:c:174a:c400:93a1    api.themoviedb.org
+18.160.200.13   tmdb.org
+2600:9000:2340:a800:10:db24:6940:93a1   tmdb.org
+13.32.205.88    api.tmdb.org
+2600:9000:2015:9000:10:fb02:4000:93a1   api.tmdb.org
+143.244.60.195  image.tmdb.org
+172.67.74.14    opensubtitles.org
+172.67.74.14    www.opensubtitles.org
 104.26.7.244    api.opensubtitles.org
-158.69.0.103    assets.fanart.tv
+192.99.151.161  assets.fanart.tv
 # TMDB Hosts End
 # Kekylin Hosts End
