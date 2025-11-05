@@ -1,4 +1,3 @@
-# hosts
 
 一个自动更新 hosts 文件的项目。通过多 DNS 源解析与三级连通性检测，自动为 GitHub、TMDB、OpenSubtitles、Fanart 等域名生成可用 IP 列表。
 
@@ -32,49 +31,6 @@
 
 - **自动化更新**：GitHub Actions 每小时自动运行（定时触发默认：双栈模式、每协议最多 1 个 IP）
 
-## 使用方法
-
-### Linux / macOS
-- 写入（覆盖 `/etc/hosts`）
-```bash
-curl -fsSL https://raw.githubusercontent.com/kekylin/hosts/main/hosts | sudo tee /etc/hosts >/dev/null
-```
-
-- 刷新（Linux：刷新 DNS 缓存）
-```bash
-sudo resolvectl flush-caches || sudo systemd-resolve --flush-caches || true
-```
-
-- 刷新（macOS：刷新 DNS 缓存）
-```bash
-sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder
-```
-
-- 删除（Linux，移除本项目标记区段）
-```bash
-sudo sed -i '/# Kekylin Hosts Start/,/# Kekylin Hosts End/d' /etc/hosts
-```
-
-- 删除（macOS，移除本项目标记区段）
-```bash
-sudo sed -i '' '/# Kekylin Hosts Start/,/# Kekylin Hosts End/d' /etc/hosts
-```
-
-### Windows（以管理员运行 PowerShell）
-- 写入（覆盖 `C:\\Windows\\System32\\drivers\\etc\\hosts`）
-```powershell
-(Invoke-WebRequest -UseBasicParsing https://raw.githubusercontent.com/kekylin/hosts/main/hosts).Content | Set-Content -Path C:\Windows\System32\drivers\etc\hosts -Encoding ascii
-```
-
-- 刷新（刷新 DNS 缓存）
-```powershell
-ipconfig /flushdns
-```
-
-- 删除（移除本项目标记区段）
-```powershell
-(Get-Content C:\Windows\System32\drivers\etc\hosts) -join "`n" -replace "# Kekylin Hosts Start[\s\S]*?# Kekylin Hosts End`n?", "" | Set-Content C:\Windows\System32\drivers\etc\hosts -Encoding ascii
-```
 
 ## 自定义配置
 
