@@ -1,0 +1,111 @@
+# hosts
+
+一个自动更新 hosts 文件的项目。通过多 DNS 源解析与三级连通性检测，自动为 GitHub、TMDB、OpenSubtitles、Fanart 等域名生成可用 IP 列表。
+
+## 功能
+
+- **多源 DNS 并行解析**：使用 `dig` 命令从多个 DNS 服务器查询 A/AAAA 记录（默认内置）：
+  - 223.5.5.5（阿里DNS）
+  - 119.29.29.29（腾讯DNS）
+  - 180.76.76.76（百度DNS）
+  - 114.114.114.114（114DNS）
+  - 支持自定义 DNS 列表覆盖默认配置
+
+- **三级连通性检测**（8 线程并发）：
+  1. HTTPS 直连检测（携带 Host 头，跳过证书验证）
+  2. TCP 443 端口连通性检测
+  3. Ping 检测（IPv4/IPv6 自动适配）
+  - 任一检测通过即认为 IP 可用，按优先级记录检测方法
+
+- **协议支持**：
+  - `True`：双栈模式（IPv4 + IPv6）
+  - `IPv4`：仅 IPv4
+  - `IPv6`：仅 IPv6
+
+- **数量控制**：可设置每种协议最多保留的 IP 数量（默认值：1，范围：1~3）
+
+- **支持的域名组**：
+  - GitHub（包含主站、API、资源 CDN、Copilot 等 30+ 域名）
+  - TMDB（主站、API、图片 CDN 等）
+  - OpenSubtitles（主站、API）
+  - Fanart（资源 CDN）
+
+- **自动化更新**：GitHub Actions 每小时自动运行（定时触发默认：双栈模式、每协议最多 1 个 IP）
+
+## 使用方法
+
+### Linux / macOS
+- 写入（覆盖 `/etc/hosts`）
+```bash
+curl -fsSL https://raw.githubusercontent.com/kekylin/hosts/main/hosts | sudo tee /etc/hosts >/dev/null
+```
+
+- 刷新（Linux：刷新 DNS 缓存）
+```bash
+sudo resolvectl flush-caches || sudo systemd-resolve --flush-caches || true
+```
+
+- 刷新（macOS：刷新 DNS 缓存）
+```bash
+sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder
+```
+
+- 删除（Linux，移除本项目标记区段）
+```bash
+sudo sed -i '/# Kekylin Hosts Start/,/# Kekylin Hosts End/d' /etc/hosts
+```
+
+- 删除（macOS，移除本项目标记区段）
+```bash
+sudo sed -i '' '/# Kekylin Hosts Start/,/# Kekylin Hosts End/d' /etc/hosts
+```
+
+### Windows（以管理员运行 PowerShell）
+- 写入（覆盖 `C:\\Windows\\System32\\drivers\\etc\\hosts`）
+```powershell
+(Invoke-WebRequest -UseBasicParsing https://raw.githubusercontent.com/kekylin/hosts/main/hosts).Content | Set-Content -Path C:\Windows\System32\drivers\etc\hosts -Encoding ascii
+```
+
+- 刷新（刷新 DNS 缓存）
+```powershell
+ipconfig /flushdns
+```
+
+- 删除（移除本项目标记区段）
+```powershell
+(Get-Content C:\Windows\System32\drivers\etc\hosts) -join "`n" -replace "# Kekylin Hosts Start[\s\S]*?# Kekylin Hosts End`n?", "" | Set-Content C:\Windows\System32\drivers\etc\hosts -Encoding ascii
+```
+
+## 自定义配置
+
+> 以下内容适用于 fork 本仓库后需要自定义参数的用户。
+
+### GitHub Actions
+
+**自动定时运行**：
+- 每小时自动触发一次（`* */1 * * *`）
+- 定时触发默认参数：
+  - `DUAL_STACK`: `True`（双栈模式）
+  - `MAX_IPS`: `1`（每种协议最多 1 个 IP，脚本默认值）
+  - `USER_DNS_SERVERS`: 空（使用默认 DNS 列表）
+- 运行完成后自动提交到 `main` 分支
+
+**手动触发**：
+1. 打开仓库的 Actions，选择 "Update Hosts"
+2. 点击 "Run workflow"，按需填写：
+   - `DUAL_STACK`: `True` / `IPv4` / `IPv6`（默认 `True`）
+   - `MAX_IPS`: `1`/`2`/`3`（默认 `1`）
+   - `USER_DNS_SERVERS`: 支持两种格式（均可覆盖内置 DNS，非空即生效）
+     - 逗号分隔（Actions 输入）：`223.5.5.5,119.29.29.29,Ali:223.5.5.5`
+     - Python 列表字符串（本地环境变量）：`["223.5.5.5","119.29.29.29","Ali:223.5.5.5"]`
+     - 说明：
+       - 仅 IP 项会以 IP 作为名称写入注释
+       - `别名:IP` 会以别名作为 DNS 名称（示例中的 `Ali`）
+3. 运行完成后，最新 `hosts` 将被提交到分支
+
+**生成文件格式**：
+- 文件头包含项目链接和更新时间（北京时间）
+- 每个域名组有分组注释
+- 每行格式：`IP地址 域名  # 检测方法 | DNS: DNS服务器名称`
+- 无法访问的域名会被注释掉，标记为 "完全无法访问"
+- 文件以 `# Kekylin Hosts Start` 和 `# Kekylin Hosts End` 标记区段

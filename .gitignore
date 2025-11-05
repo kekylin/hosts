@@ -1,0 +1,67 @@
+# OS-specific
+.DS_Store
+Thumbs.db
+Icon?
+.AppleDouble
+.LSOverride
+.fuse_hidden*
+.nfs*
+
+# Editors/IDEs
+.vscode/
+.idea/
+*.iml
+*.swp
+*.swo
+*~
+.project
+.settings/
+*.code-workspace
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+build/
+dist/
+.eggs/
+*.egg-info/
+pip-wheel-metadata/
+.venv/
+venv/
+env/
+.env
+.env.*
+.pytest_cache/
+.mypy_cache/
+.pytype/
+.ruff_cache/
+.tox/
+.cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+.python-version
+
+# Logs
+*.log
+
+# Node (rare here, but safe)
+node_modules/
+
+# Temp files
+tmp/
+*.tmp
+
+# CI artifacts
+.github/**/.DS_Store
+
+# Note: do NOT ignore the generated `hosts` file; it is committed by CI.
+
+# Project docs (ignored locally)
+git-push-guide.md
+.cursor/
+tests/
+
+
