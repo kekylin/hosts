@@ -188,14 +188,17 @@ def dns_query(domain, dns_ip):
         return []
 
 def check_https(domain, ip):
+    """HTTPS检测，返回延迟（毫秒）或None。"""
     url = f"https://{domain}/"
     headers = {"Host": domain}
     delay = 0.3
     for _ in range(RETRY):
         try:
+            start = time.time()
             r = requests.get(url, headers=headers, timeout=TIMEOUT_REQUEST, verify=False)
+            elapsed = (time.time() - start) * 1000
             if isinstance(r.status_code, int):
-                return "https"
+                return elapsed
         except Exception:
             time.sleep(delay)
             delay = min(delay * 2, 1.2)
@@ -203,12 +206,15 @@ def check_https(domain, ip):
     return None
 
 def check_tcp(ip):
+    """TCP连接检测，返回延迟（毫秒）或None。"""
     delay = 0.2
     for _ in range(RETRY):
         try:
+            start = time.time()
             conn = socket.create_connection((ip, 443), timeout=TIMEOUT_TCP)
+            elapsed = (time.time() - start) * 1000
             conn.close()
-            return "tcp"
+            return elapsed
         except Exception:
             time.sleep(delay)
             delay = min(delay * 2, 0.8)
@@ -216,13 +222,25 @@ def check_tcp(ip):
     return None
 
 def check_ping(ip):
+    """Ping检测，返回延迟（毫秒）或None。"""
     cmd = ["ping6" if ":" in ip else "ping", "-c", "1", "-W", str(PING_TIMEOUT), ip]
     delay = 0.2
     for _ in range(RETRY):
         try:
-            proc = subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            proc = subprocess.run(cmd, capture_output=True, text=True, timeout=5)
             if proc.returncode == 0:
-                return "ping"
+                # 解析ping输出获取延迟（兼容多种格式：time=XX.X ms, time<XX ms, time=XX.X）
+                for line in proc.stdout.splitlines():
+                    # 匹配 time=XX.X 或 time<XX 格式
+                    match = re.search(r'time[<=](\d+\.?\d*)', line, re.IGNORECASE)
+                    if match:
+                        return float(match.group(1))
+                    # 匹配 "XX ms" 格式（某些系统可能直接显示延迟）
+                    match = re.search(r'(\d+\.?\d*)\s*ms', line, re.IGNORECASE)
+                    if match:
+                        return float(match.group(1))
+                # 如果无法解析但ping成功，返回默认值（表示成功但延迟未知）
+                return 0.0
         except Exception:
             pass
         time.sleep(delay)
@@ -230,11 +248,42 @@ def check_ping(ip):
     return None
 
 def test_ip(domain, ip):
-    for check in (check_https, check_tcp, check_ping):
-        res = check(domain, ip) if check is check_https else check(ip)
-        if res:
-            return res
-    return None
+    """
+    测试IP的连通性并计算综合分数。
+    返回 (score, best_method, ping_ms) 或 None。
+    
+    评分规则：
+    - function_score = HTTPS成功?100 : TCP成功?50 : Ping成功?25 : 0
+    - latency_penalty = ping_ms / 10（如果有ping）或 15（如果没有）
+    - score = function_score - latency_penalty
+    """
+    https_latency = check_https(domain, ip)
+    tcp_latency = check_tcp(ip)
+    ping_latency = check_ping(ip)
+    
+    # 计算功能分
+    function_score = 0
+    best_method = None
+    if https_latency is not None:
+        function_score = 100
+        best_method = "https"
+    elif tcp_latency is not None:
+        function_score = 50
+        best_method = "tcp"
+    elif ping_latency is not None:
+        function_score = 25
+        best_method = "ping"
+    else:
+        return None
+    
+    # 计算延迟惩罚
+    if ping_latency is not None:
+        latency_penalty = ping_latency / 10
+    else:
+        latency_penalty = 15
+    
+    score = function_score - latency_penalty
+    return (score, best_method, ping_latency if ping_latency is not None else None)
 
 def resolve_all_dns(domain):
     """汇总各 DNS 源解析到的去重 IP 列表。"""
@@ -251,7 +300,10 @@ def beijing_now_str():
     return datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S Beijing Time")
 
 def resolve_and_test(domain):
-    """解析域名并测试可达性, 返回 [(ip, method, dns_name), ...]。"""
+    """
+    解析域名并测试可达性，按评分排序返回最优IP。
+    返回 [(ip, method, dns_name), ...]，已按分数从高到低排序并取前MAX_IPS个。
+    """
     records = resolve_all_dns(domain)
     if not records:
         return []
@@ -263,20 +315,28 @@ def resolve_and_test(domain):
         for fut in concurrent.futures.as_completed(futures):
             ip, dns_name = futures[fut]
             try:
-                res = fut.result()
+                test_result = fut.result()
             except Exception:
                 continue
-            if not res:
+            if test_result is None:
                 continue
-
+            
+            score, best_method, ping_ms = test_result
+            
             if ":" in ip and (DUAL_STACK is True or DUAL_STACK == "IPv6"):
-                if len(results_v6) < MAX_IPS:
-                    results_v6.append((ip, res, dns_name))
+                results_v6.append((score, ip, best_method, dns_name, ping_ms))
             elif is_ipv4(ip) and (DUAL_STACK is True or DUAL_STACK == "IPv4"):
-                if len(results_v4) < MAX_IPS:
-                    results_v4.append((ip, res, dns_name))
+                results_v4.append((score, ip, best_method, dns_name, ping_ms))
 
-    return results_v4 + results_v6
+    # 按分数从高到低排序，取前MAX_IPS个
+    results_v4.sort(key=lambda x: x[0], reverse=True)
+    results_v6.sort(key=lambda x: x[0], reverse=True)
+    
+    # 返回格式：(ip, method, dns_name)
+    final_v4 = [(ip, method, dns_name) for _, ip, method, dns_name, _ in results_v4[:MAX_IPS]]
+    final_v6 = [(ip, method, dns_name) for _, ip, method, dns_name, _ in results_v6[:MAX_IPS]]
+    
+    return final_v4 + final_v6
 
 # ===== 主逻辑 =====
 def main():
