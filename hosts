@@ -1,55 +1,55 @@
 # Kekylin Hosts Start
 # 项目主页: https://github.com/kekylin/hosts
-# 更新时间: 2025-11-23 12:35:05 Beijing Time
+# 更新时间: 2025-11-23 18:22:39 Beijing Time
 
 # ==== GitHub ====
-185.199.108.154 github.githubassets.com  # https | DNS: AliDNS
-140.82.113.21 central.github.com  # https | DNS: BaiduDNS
-185.199.111.133 desktop.githubusercontent.com  # https | DNS: AliDNS
-185.199.110.133 camo.githubusercontent.com  # https | DNS: AliDNS
+185.199.110.154 github.githubassets.com  # https | DNS: AliDNS
+140.82.114.21 central.github.com  # https | DNS: BaiduDNS
+185.199.109.133 desktop.githubusercontent.com  # https | DNS: AliDNS
+185.199.111.133 camo.githubusercontent.com  # https | DNS: AliDNS
 185.199.108.133 github.map.fastly.net  # https | DNS: AliDNS
-146.75.93.194 github.global.ssl.fastly.net  # https | DNS: DNS114
-2a03:2880:f11f:83:face:b00c:0:25de github.global.ssl.fastly.net  # https | DNS: BaiduDNS
-140.82.112.4 gist.github.com  # https | DNS: TencentDNS
+151.101.197.194 github.global.ssl.fastly.net  # https | DNS: DNS114
+2a03:2880:f11a:83:face:b00c:0:25de github.global.ssl.fastly.net  # https | DNS: BaiduDNS
+140.82.114.4 gist.github.com  # https | DNS: TencentDNS
 2001::1 gist.github.com  # https | DNS: BaiduDNS
-185.199.110.153 github.io  # tcp | DNS: AliDNS
-140.82.112.4 github.com  # https | DNS: TencentDNS
-140.82.113.6 api.github.com  # https | DNS: TencentDNS
-185.199.108.133 raw.githubusercontent.com  # tcp | DNS: AliDNS
-185.199.109.133 user-images.githubusercontent.com  # https | DNS: AliDNS
+185.199.111.153 github.io  # tcp | DNS: AliDNS
+140.82.113.3 github.com  # https | DNS: TencentDNS
+140.82.112.6 api.github.com  # https | DNS: TencentDNS
+185.199.109.133 raw.githubusercontent.com  # tcp | DNS: AliDNS
+185.199.108.133 user-images.githubusercontent.com  # https | DNS: AliDNS
 2606:50c0:8003::154 user-images.githubusercontent.com  # https | DNS: AliDNS
-185.199.110.133 favicons.githubusercontent.com  # https | DNS: AliDNS
+185.199.109.133 favicons.githubusercontent.com  # https | DNS: AliDNS
 185.199.111.133 avatars5.githubusercontent.com  # tcp | DNS: AliDNS
-185.199.110.133 avatars4.githubusercontent.com  # tcp | DNS: AliDNS
-185.199.108.133 avatars3.githubusercontent.com  # tcp | DNS: AliDNS
-185.199.110.133 avatars2.githubusercontent.com  # tcp | DNS: AliDNS
-185.199.109.133 avatars1.githubusercontent.com  # tcp | DNS: AliDNS
-185.199.109.133 avatars0.githubusercontent.com  # tcp | DNS: AliDNS
-185.199.110.133 avatars.githubusercontent.com  # tcp | DNS: AliDNS
+185.199.111.133 avatars4.githubusercontent.com  # tcp | DNS: AliDNS
+185.199.110.133 avatars3.githubusercontent.com  # tcp | DNS: AliDNS
+185.199.111.133 avatars2.githubusercontent.com  # tcp | DNS: AliDNS
+185.199.111.133 avatars1.githubusercontent.com  # tcp | DNS: AliDNS
+185.199.108.133 avatars0.githubusercontent.com  # tcp | DNS: AliDNS
+185.199.111.133 avatars.githubusercontent.com  # tcp | DNS: AliDNS
 140.82.113.10 codeload.github.com  # tcp | DNS: TencentDNS
-16.15.183.12 github-cloud.s3.amazonaws.com  # https | DNS: AliDNS
-52.217.236.177 github-com.s3.amazonaws.com  # https | DNS: AliDNS
-3.5.31.149 github-production-release-asset-2e65be.s3.amazonaws.com  # https | DNS: AliDNS
-52.217.170.209 github-production-user-asset-6210df.s3.amazonaws.com  # https | DNS: AliDNS
-16.15.194.142 github-production-repository-file-5c1aeb.s3.amazonaws.com  # https | DNS: AliDNS
-185.199.111.153 githubstatus.com  # https | DNS: AliDNS
-140.82.114.18 github.community  # tcp | DNS: AliDNS
-185.199.108.133 media.githubusercontent.com  # tcp | DNS: AliDNS
+52.217.206.249 github-cloud.s3.amazonaws.com  # https | DNS: AliDNS
+52.217.107.68 github-com.s3.amazonaws.com  # https | DNS: AliDNS
+16.15.177.145 github-production-release-asset-2e65be.s3.amazonaws.com  # https | DNS: AliDNS
+52.217.254.33 github-production-user-asset-6210df.s3.amazonaws.com  # https | DNS: AliDNS
+3.5.7.184 github-production-repository-file-5c1aeb.s3.amazonaws.com  # https | DNS: AliDNS
+185.199.108.153 githubstatus.com  # https | DNS: AliDNS
+140.82.113.17 github.community  # tcp | DNS: TencentDNS
+185.199.110.133 media.githubusercontent.com  # tcp | DNS: AliDNS
 185.199.108.133 objects.githubusercontent.com  # https | DNS: AliDNS
-185.199.109.133 raw.github.com  # tcp | DNS: AliDNS
+185.199.110.133 raw.github.com  # tcp | DNS: AliDNS
 20.85.130.105 copilot-proxy.githubusercontent.com  # https | DNS: TencentDNS
 
 # ==== TMDB ====
-3.171.38.90 themoviedb.org  # tcp | DNS: AliDNS
-3.171.38.81 www.themoviedb.org  # https | DNS: AliDNS
-2600:9000:28a0:0:e:5373:440:93a1 www.themoviedb.org  # https | DNS: AliDNS
-3.170.19.106 api.themoviedb.org  # https | DNS: AliDNS
-2600:9000:286d:5200:c:174a:c400:93a1 api.themoviedb.org  # https | DNS: AliDNS
-99.86.229.116 tmdb.org  # tcp | DNS: AliDNS
+3.171.38.80 themoviedb.org  # tcp | DNS: AliDNS
+3.171.38.80 www.themoviedb.org  # https | DNS: AliDNS
+2600:9000:28a0:a400:e:5373:440:93a1 www.themoviedb.org  # https | DNS: AliDNS
+3.170.19.97 api.themoviedb.org  # https | DNS: AliDNS
+2600:9000:286d:4400:c:174a:c400:93a1 api.themoviedb.org  # https | DNS: AliDNS
+99.86.229.123 tmdb.org  # tcp | DNS: AliDNS
 3.170.19.19 api.tmdb.org  # https | DNS: AliDNS
-2600:9000:286d:ae00:10:fb02:4000:93a1 api.tmdb.org  # https | DNS: AliDNS
-143.244.56.56 image.tmdb.org  # https | DNS: AliDNS
-2600:9000:28a3:ac00:14:41bb:de80:93a1 image.tmdb.org  # https | DNS: AliDNS
+2600:9000:286d:aa00:10:fb02:4000:93a1 api.tmdb.org  # https | DNS: AliDNS
+143.244.60.193 image.tmdb.org  # https | DNS: TencentDNS
+2400:52e0:1e02::1315:1 image.tmdb.org  # https | DNS: AliDNS
 
 # ==== OpenSubtitles ====
 104.26.7.244 opensubtitles.org  # https | DNS: AliDNS
@@ -57,7 +57,7 @@
 104.26.6.244 www.opensubtitles.org  # https | DNS: AliDNS
 2606:4700:20::ac43:4a0e www.opensubtitles.org  # https | DNS: AliDNS
 104.26.7.244 api.opensubtitles.org  # https | DNS: AliDNS
-2606:4700:20::681a:6f4 api.opensubtitles.org  # https | DNS: AliDNS
+2606:4700:20::681a:7f4 api.opensubtitles.org  # https | DNS: AliDNS
 
 # ==== Fanart ====
 158.69.209.125 assets.fanart.tv  # https | DNS: AliDNS
